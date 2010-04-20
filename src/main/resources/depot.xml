@@ -1,0 +1,20 @@
+<depot>
+	<resources>
+		<memory id="ram">
+			<max_duration/> <!-- empty means infinite duration -->
+			<max_size>500G</max_size>
+		</memory>
+		
+		<folder id="hda1">
+			<max_duration>30</max_duration> <!-- duration unit is minute -->
+			<max_size>500G</max_size>
+			<location>/home/patrick</location><!-- location is the same for data and metadata -->
+		</folder>
+	</resources>
+	
+	<service>
+		<port>6714</port>
+		<connection_timeout>30</connection_timeout>
+		<enable_logging>true</enable_logging> <!-- following the common log format -->
+	</service>
+</depot>

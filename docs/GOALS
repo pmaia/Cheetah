@@ -1,0 +1,4 @@
+-> o serviço deve ser monitorável
+-> metadados devem ficar juntos ao recurso
+-> toda alocação realmente reserva espaço no recurso
+-> todos os tipos de alocação serão suportados
