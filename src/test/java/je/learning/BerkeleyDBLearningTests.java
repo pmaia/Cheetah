@@ -42,6 +42,9 @@ public class BerkeleyDBLearningTests {
 	public void setup() throws IOException, ConfigurationException {
 		String tempDir = System.getProperty("java.io.tmpdir");
 		
+		if(!tempDir.endsWith(File.separator))
+			tempDir += File.separator;
+		
 		environmentDir = new File(tempDir + "dbEnv-" + System.currentTimeMillis());
 		
 		if(!environmentDir.mkdir()) {

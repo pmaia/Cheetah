@@ -16,11 +16,33 @@
 		</repository>
 	</repositories>
 
+	<build>
+		<finalName>IBP Cheetah</finalName>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<artifactId>je</artifactId>
 			<groupId>com.sleepycat</groupId>
 			<version>4.0.71</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>1.1.7</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

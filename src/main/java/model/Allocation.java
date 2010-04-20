@@ -16,9 +16,15 @@ public class Allocation {
 	
 	private String	name;
 	
+	private String 	manageKey;
+	
+	private String 	writeKey;
+	
+	private String 	readKey;
+	
 	private Date	expirationTime;
 	
-	public enum Type {
+	public static enum Type {
 		BYTE_ARRAY
 	}
 	
@@ -37,8 +43,20 @@ public class Allocation {
 		return name;
 	}
 	
+	public String getManageKey() {
+		return manageKey;
+	}
+
+	public String getWriteKey() {
+		return writeKey;
+	}
+
+	public String getReadKey() {
+		return readKey;
+	}
+
 	/**
-	 * Increases the duration of the Allocation object
+	 * Increases the Allocation duration
 	 * 
 	 * @param addend the amount of time in seconds in which the duration must be augmented
 	 */
@@ -46,10 +64,6 @@ public class Allocation {
 		expirationTime = new Date(expirationTime.getTime() + (addend * 1000));
 	}
 
-	public void save() {
-		// TODO Auto-generated method stub
-	}
-	
 	public Date getExpirationTime() {
 		return expirationTime;
 	}

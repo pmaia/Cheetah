@@ -1,7 +1,5 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 
@@ -12,9 +10,9 @@ public class Resource {
 	
 	private static int nameSequence = 0;
 	
-	private Map<String, Allocation> allocations = new HashMap<String, Allocation>();
+	private AllAllocations allAllocations =  new AllAllocationsInMemory();
 	
-	public enum Type {
+	public static enum Type {
 		MEMORY
 	}
 	
@@ -25,12 +23,16 @@ public class Resource {
 	public Allocation allocate(long size, long duration, Allocation.Type type) {
 		Allocation allocation = new Allocation("allocation-" + nameSequence++, duration);
 		
-		allocations.put(allocation.getName(), allocation);
+		allAllocations.add(allocation);
 		
 		return allocation;
 	}
 	
 	public Allocation getAllocation(String name) {
-		return allocations.get(name);
+		return allAllocations.get(name);
+	}
+	
+	public boolean isAvailable() {
+		return true;
 	}
 }
