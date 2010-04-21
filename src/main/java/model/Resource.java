@@ -1,38 +1,33 @@
 package model;
 
+import java.util.UUID;
+
 
 /**
  * 
  * @author Patrick Maia
  *
  */
-public class Resource {
+public abstract class Resource {
 	
-	private static int nameSequence = 0;
+	protected ResourceConfig configuration;
 	
-	private AllAllocations allAllocations =  new AllAllocationsInMemory();
-	
-	public static enum Type {
-		MEMORY
+	public Resource(ResourceConfig configuration) {
+		this.configuration = configuration;
 	}
 	
-	public Resource(Type type) {
-		
+	public ResourceConfig getConfiguration() {
+		return configuration;
 	}
 	
-	public Allocation allocate(long size, long duration, Allocation.Type type) {
-		Allocation allocation = new Allocation("allocation-" + nameSequence++, duration);
-		
-		allAllocations.add(allocation);
-		
-		return allocation;
+	protected String randomName() {
+		return UUID.randomUUID().toString();
 	}
 	
-	public Allocation getAllocation(String name) {
-		return allAllocations.get(name);
-	}
+	public abstract Allocation allocate(long size, long duration, Allocation.Type type);
 	
-	public boolean isAvailable() {
-		return true;
-	}
+	//TODO ver se eh melhor retornar nulo ou lancar uma excecao para o caso da alocacao nao existir
+	public abstract Allocation getAllocation(String name);
+	
+	public abstract  boolean isAvailable();
 }

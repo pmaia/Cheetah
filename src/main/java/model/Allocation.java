@@ -12,7 +12,14 @@ import com.sleepycat.persist.model.Entity;
 @Entity
 public class Allocation {
 	
-	private AllocationDriver driver = new MemoryAllocationDriver();
+	public static enum Type {
+		BUFFER,
+		BYTE_ARRAY,
+		CIRCULAR_QUEUE,
+		FIFO
+	}
+
+	private ReadWrite rwBehavior;
 	
 	private String	name;
 	
@@ -22,11 +29,13 @@ public class Allocation {
 	
 	private String 	readKey;
 	
+	private long 	maxSize;
+	
+	private long 	currentSize;
+	
 	private Date	expirationTime;
 	
-	public static enum Type {
-		BYTE_ARRAY
-	}
+	private Type	type;
 	
 	/**
 	 * Creates a new Allocation object
@@ -54,6 +63,10 @@ public class Allocation {
 	public String getReadKey() {
 		return readKey;
 	}
+	
+	public long getMaxSize() {
+		return maxSize;
+	}
 
 	/**
 	 * Increases the Allocation duration
@@ -67,6 +80,10 @@ public class Allocation {
 	public Date getExpirationTime() {
 		return expirationTime;
 	}
+	
+	public Type getType() {
+		return type;
+	}
 
 	/**
 	 * Writes up to length bytes in the Allocation 
@@ -77,7 +94,7 @@ public class Allocation {
 	 * @param length the amount of bytes to write
 	 */
 	public void write(byte[] data, int dataStartOffset, long allocationStartOffset, int length) {
-		driver.write(data, dataStartOffset, allocationStartOffset, length);		
+		rwBehavior.write(data, dataStartOffset, allocationStartOffset, length);
 	}
 
 	/**
@@ -88,7 +105,7 @@ public class Allocation {
 	 * @return a array of bytes containing the read data
 	 */
 	public byte[] read(int allocationStartOffset, int length) {
-		return driver.read(allocationStartOffset, length);
+		return rwBehavior.read(allocationStartOffset, length);
 	}
 
 }
