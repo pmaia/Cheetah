@@ -6,7 +6,7 @@ package model;
  * @author Patrick Maia
  *
  */
-public class ByteBuffer implements ReadWrite {
+public class ByteBuffer implements AllocationDriver {
 
 	@Override
 	public byte[] read(int allocationStartOffset, int length) {

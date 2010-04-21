@@ -6,7 +6,7 @@ package model;
  * @author Patrick Maia
  *
  */
-public class FIFO implements ReadWrite {
+public class FIFO implements AllocationDriver {
 
 	@Override
 	public byte[] read(int allocationStartOffset, int length) {

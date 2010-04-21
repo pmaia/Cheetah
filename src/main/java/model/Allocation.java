@@ -19,7 +19,7 @@ public class Allocation {
 		FIFO
 	}
 
-	private ReadWrite rwBehavior;
+	private AllocationDriver rwBehavior;
 	
 	private String	name;
 	

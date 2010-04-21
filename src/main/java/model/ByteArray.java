@@ -6,7 +6,7 @@ package model;
  * @author Patrick Maia
  *
  */
-public class ByteArray implements ReadWrite {
+public class ByteArray implements AllocationDriver {
 	
 	@Override
 	public byte[] read(int allocationStartOffset, int length) {

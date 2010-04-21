@@ -6,7 +6,7 @@ package model;
  * @author Patrick Maia
  *
  */
-public class CircularQueue implements ReadWrite {
+public class CircularQueue implements AllocationDriver {
 
 	@Override
 	public byte[] read(int allocationStartOffset, int length) {
