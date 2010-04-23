@@ -19,7 +19,7 @@ public class Memory extends Resource {
 	@Override
 	public Allocation allocate(long size, long duration, AllocationType type) {
 		//pre conditions: space and durations constraints
-		Allocation allocation = AllocationFactory.create(type, new MemoryAllocationDriver(size));
+		Allocation allocation = Allocation.getInstance(type, new MemoryAllocationDriver(size));
 		
 		allocation.setName(randomName());
 		allocation.setManageKey(randomName());
