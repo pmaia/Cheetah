@@ -14,10 +14,10 @@ public class DiskAllocationDriver implements AllocationDriver {
 	}
 
 	@Override
-	public void write(byte[] data, int dataStartOffset,
-			long allocationStartOffset, int length) {
+	public void write(byte[] data, long allocationStartOffset, int length) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
 
 }

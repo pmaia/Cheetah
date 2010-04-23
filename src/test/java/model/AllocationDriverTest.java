@@ -23,7 +23,7 @@ public class AllocationDriverTest {
 	public void writeReadTest() {
 		byte [] data = "Cheetah".getBytes();
 		
-		allocDriver.write(data, 0, 0, data.length);
+		allocDriver.write(data, 0, data.length);
 		
 		byte [] readData = allocDriver.read(0, data.length);
 		
@@ -34,20 +34,9 @@ public class AllocationDriverTest {
 	public void writeReadWithAllocationOffsetTest() {
 		byte [] data = "Cheetah".getBytes();
 		
-		allocDriver.write(data, 0, 10, data.length);
+		allocDriver.write(data, 10, data.length);
 		
 		byte [] readData = allocDriver.read(10, data.length);
-		
-		assertEquals("Cheetah", new String(readData));
-	}
-	
-	@Test
-	public void writeReadWithDataOffset() {
-		byte [] data = "Cheetah Cheetah".getBytes();
-		
-		allocDriver.write(data, 8, 0, data.length - 8);
-		
-		byte [] readData = allocDriver.read(0, data.length - 8);
 		
 		assertEquals("Cheetah", new String(readData));
 	}

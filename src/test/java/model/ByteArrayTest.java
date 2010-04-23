@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import exceptions.IllegalAccessException;
+import exceptions.AllocationIllegalAccessException;
 
 /**
  * 
@@ -26,25 +26,30 @@ public class ByteArrayTest {
 	}
 	
 	@Test
-	public void readMoreBytesThanAvailableTest() throws IllegalAccessException {
+	public void readMoreBytesThanAvailableTest() throws AllocationIllegalAccessException {
 		Allocation byteArrayAllocation = resource.allocate(10, 30, AllocationType.BYTE_ARRAY );
-
+		AllocationOutputStream aos = byteArrayAllocation.getOutputStream();
+		AllocationInputStream ais = byteArrayAllocation.getInputStream();
+		
 		byte [] data = "a".getBytes();
 
-		byteArrayAllocation.write(data, 0, 0, data.length);
+		aos.write(data, 0, data.length);
+
+		byte [] readData = new byte[10]; 
+			
+		int read = ais.read(readData, 0, 10);
 		
-		byte [] readData = byteArrayAllocation.read(0, 10);
-		
-		assertEquals(data.length, readData.length);
+		assertEquals(data.length, read);
 	}
 	
-	@Test(expected=exceptions.IllegalAccessException.class)
-	public void writeMoreBytesThanMaxSize() throws IllegalAccessException {
-		Allocation byteArray = resource.allocate(2, 30, AllocationType.BYTE_ARRAY);
+	@Test(expected=exceptions.AllocationIllegalAccessException.class)
+	public void writeMoreBytesThanMaxSize() throws AllocationIllegalAccessException {
+		Allocation byteArrayAllocation = resource.allocate(2, 30, AllocationType.BYTE_ARRAY);
+		AllocationOutputStream aos = byteArrayAllocation.getOutputStream();
 		
 		byte [] data = "abc".getBytes();
 		
-		byteArray.write(data, 0, 0, data.length);
+		aos.write(data, 0, data.length);
 	}
 	
 	/*

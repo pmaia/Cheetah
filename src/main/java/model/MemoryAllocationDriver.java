@@ -36,7 +36,7 @@ public class MemoryAllocationDriver implements AllocationDriver {
 	}
 
 	@Override
-	public void write(byte[] data, int dataStartOffset, long allocationStartOffset, int length) {
+	public void write(byte[] data, long allocationStartOffset, int length) {
 		if(buffer.length < allocationStartOffset + length) {
 			byte [] temp = new byte[(int)allocationStartOffset + length];
 			
@@ -45,7 +45,7 @@ public class MemoryAllocationDriver implements AllocationDriver {
 			buffer = temp;
 		}
 		
-		System.arraycopy(data, dataStartOffset, this.buffer, (int)allocationStartOffset, length);
+		System.arraycopy(data, 0, this.buffer, (int)allocationStartOffset, length);
 	}
 
 }

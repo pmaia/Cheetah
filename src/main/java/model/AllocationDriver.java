@@ -12,11 +12,10 @@ public interface AllocationDriver {
 	 * Writes up to length bytes in the Allocation 
 	 * 
 	 * @param data the data to store in the Allocation
-	 * @param dataStartOffset the start offset in the data array
 	 * @param allocationStartOffset the start offset in the allocation
 	 * @param length the amount of bytes to write
 	 */
-	void write(byte[] data, int dataStartOffset, long allocationStartOffset, int length);
+	void write(byte[] data, long allocationStartOffset, int length);
 
 	/**
 	 * Reads up to length bytes from the Allocation 

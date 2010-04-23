@@ -9,16 +9,15 @@ package model;
 public class CircularQueue extends Allocation {
 
 	@Override
-	public byte[] read(int allocationStartOffset, int length) {
+	public AllocationInputStream getInputStream() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void write(byte[] data, int dataStartOffset,
-			long allocationStartOffset, int length) {
+	public AllocationOutputStream getOutputStream() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

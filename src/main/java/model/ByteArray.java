@@ -1,7 +1,8 @@
 package model;
 
-import exceptions.IllegalAccessException;
+import java.util.concurrent.locks.ReentrantLock;
 
+import exceptions.AllocationIllegalAccessException;
 
 
 /**
@@ -18,36 +19,74 @@ import exceptions.IllegalAccessException;
  * semantics for write operations, a write operation can be simultaneously active with any number of read operations to the same storage area.   
  * @author Patrick Maia
 */
- 
- 
 public class ByteArray extends Allocation {
 	
 	private AllocationDriver allocationDriver;
+	private ByteArrayInputStream inputStream;
+	private ByteArrayOutputStream outputStream;
 	
 	public ByteArray(AllocationDriver allocationDriver) {
 		this.allocationDriver = allocationDriver;
+		
+		inputStream = new ByteArrayInputStream();
+		outputStream = new ByteArrayOutputStream();
+	}
+
+	@Override
+	public AllocationInputStream getInputStream() {
+		return inputStream;
+	}
+
+	@Override
+	public AllocationOutputStream getOutputStream() {
+		return outputStream;
+	}
+
+	private class ByteArrayOutputStream implements AllocationOutputStream {
+		
+		private ReentrantLock writeLock = new ReentrantLock();
+		
+		@Override
+		public void close() {
+			writeLock.unlock();
+		}
+
+		@Override
+		public int write(byte[] data, long allocationStartOffset, int length) throws AllocationIllegalAccessException {
+			writeLock.lock();
+			
+			if(allocationStartOffset + length > getMaxSize()) {
+				throw new AllocationIllegalAccessException();
+			} else if(allocationStartOffset + length > getCurrentSize()) {
+				setCurrentSize(allocationStartOffset + length);
+			}
+
+			allocationDriver.write(data, allocationStartOffset, length);
+			
+			return 0;
+		}
+		
 	}
 	
-	@Override
-	public byte[] read(int allocationStartOffset, int length) {
-		
-		if(allocationStartOffset + length > getCurrentSize()) {
-			length = (int)(getCurrentSize() - allocationStartOffset);
+	private class ByteArrayInputStream implements AllocationInputStream {
+
+		@Override
+		public void close() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public int read(byte[] buffer, int allocationStartOffset, int length) {
+
+			if(allocationStartOffset + length > getCurrentSize()) {
+				length = (int)(getCurrentSize() - allocationStartOffset);
+			}
+			
+			allocationDriver.read(allocationStartOffset, length);
+			
+			return 0;
 		}
 		
-		return allocationDriver.read(allocationStartOffset, length);
 	}
-
-	@Override
-	public void write(byte[] data, int dataStartOffset, long allocationStartOffset, int length) throws IllegalAccessException {
-		
-		if(allocationStartOffset + length > getMaxSize()) {
-			throw new IllegalAccessException();
-		} else if(allocationStartOffset + length > getCurrentSize()) {
-			setCurrentSize(allocationStartOffset + length);
-		}
-		
-		allocationDriver.write(data, dataStartOffset, allocationStartOffset, length);
-	}
-
 }

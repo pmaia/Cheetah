@@ -5,8 +5,6 @@ import java.util.Date;
 
 import com.sleepycat.persist.model.Entity;
 
-import exceptions.IllegalAccessException;
-
 /**
  * 
  * @author Patrick Maia
@@ -97,24 +95,8 @@ public abstract class Allocation {
 		return expirationTime;
 	}
 	
-	/**
-	 * Writes up to length bytes in the Allocation 
-	 * 
-	 * @param data the data to store in the Allocation
-	 * @param dataStartOffset the start offset in the data array
-	 * @param allocationStartOffset the start offset in the allocation
-	 * @param length the amount of bytes to write
-	 * @throws IllegalAccessException 
-	 */
-	public abstract void write(byte[] data, int dataStartOffset, long allocationStartOffset, int length) throws IllegalAccessException;
-
-	/**
-	 * Reads up to length bytes from the Allocation 
-	 * 
-	 * @param allocationStartOffset the position in the Allocation to start reading
-	 * @param length the amount of bytes to read
-	 * @return a array of bytes containing the read data
-	 */
-	public abstract byte[] read(int allocationStartOffset, int length);
+	public abstract AllocationOutputStream getOutputStream();
+	
+	public abstract AllocationInputStream getInputStream();
 
 }
