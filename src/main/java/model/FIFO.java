@@ -6,7 +6,7 @@ package model;
  * @author Patrick Maia
  *
  */
-public class FIFO implements AllocationDriver {
+public class FIFO extends Allocation {
 
 	@Override
 	public byte[] read(int allocationStartOffset, int length) {

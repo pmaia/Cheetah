@@ -17,7 +17,7 @@ public class ResourceConfig {
 		return maxDuration;
 	}
 
-	public void setMaxDuration(long maxDuration) {
+	public void setDurationLimit(long maxDuration) {
 		this.maxDuration = maxDuration;
 	}
 
@@ -25,7 +25,7 @@ public class ResourceConfig {
 		return maxSize;
 	}
 
-	public void setMaxSize(long maxSize) {
+	public void setSpaceLimit(long maxSize) {
 		this.maxSize = maxSize;
 	}
 	

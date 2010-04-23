@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public abstract class Resource {
 	
-	protected ResourceConfig configuration;
+	private ResourceConfig configuration;
 	
 	public Resource(ResourceConfig configuration) {
 		this.configuration = configuration;
@@ -24,7 +24,7 @@ public abstract class Resource {
 		return UUID.randomUUID().toString();
 	}
 	
-	public abstract Allocation allocate(long size, long duration, Allocation.Type type);
+	public abstract Allocation allocate(long size, long duration, AllocationType type);
 	
 	//TODO ver se eh melhor retornar nulo ou lancar uma excecao para o caso da alocacao nao existir
 	public abstract Allocation getAllocation(String name);

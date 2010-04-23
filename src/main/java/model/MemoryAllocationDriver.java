@@ -14,8 +14,9 @@ public class MemoryAllocationDriver implements AllocationDriver {
 	 * 
 	 * @param initialCapacity the internal buffer initial capacity
 	 */
-	public MemoryAllocationDriver(int initialCapacity) {
-		buffer = new byte[initialCapacity];
+	public MemoryAllocationDriver(long initialCapacity) {
+		//FIXME implementar de modo a nao ser limitiada pelo tamanho maximo de um array
+		buffer = new byte[(int)initialCapacity];
 	}
 	
 	/**

@@ -3,8 +3,6 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Allocation.Type;
-
 /**
  * 
  * @author Patrick Maia
@@ -19,8 +17,21 @@ public class Memory extends Resource {
 	}
 
 	@Override
-	public Allocation allocate(long size, long duration, Type type) {
-		return null;
+	public Allocation allocate(long size, long duration, AllocationType type) {
+		//pre conditions: space and durations constraints
+		Allocation allocation = AllocationFactory.create(type, new MemoryAllocationDriver(size));
+		
+		allocation.setName(randomName());
+		allocation.setManageKey(randomName());
+		allocation.setReadKey(randomName());
+		allocation.setWriteKey(randomName());
+		allocation.setMaxSize(size);
+		//FIXME duration deve ser um multiplo de 5 minutos para facilitar o trabalho de indexacao das allocacoes para o coletor de alocacoes expiradas
+		allocation.increaseDuration(duration);
+		
+		allAllocations.put(allocation.getName(), allocation);
+		
+		return allocation;
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class Disk extends Resource {
 		this.location = location;
 	}
 	
-	public Allocation allocate(long size, long duration, Allocation.Type type) {
+	public Allocation allocate(long size, long duration, AllocationType type) {
 //		Allocation allocation = new Allocation("allocation-" + nameSequence++, duration);
 //		
 //		allAllocations.add(allocation);
