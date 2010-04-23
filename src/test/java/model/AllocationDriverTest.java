@@ -25,7 +25,9 @@ public class AllocationDriverTest {
 		
 		allocDriver.write(data, 0, data.length);
 		
-		byte [] readData = allocDriver.read(0, data.length);
+		byte [] readData = new byte[data.length]; 
+			
+		allocDriver.read(readData, 0, data.length);
 		
 		assertEquals("Cheetah", new String(readData));
 	}
@@ -36,7 +38,9 @@ public class AllocationDriverTest {
 		
 		allocDriver.write(data, 10, data.length);
 		
-		byte [] readData = allocDriver.read(10, data.length);
+		byte [] readData = new byte[data.length];
+		
+		allocDriver.read(readData, 10, data.length);
 		
 		assertEquals("Cheetah", new String(readData));
 	}

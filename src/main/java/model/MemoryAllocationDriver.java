@@ -7,7 +7,7 @@ package model;
  */
 public class MemoryAllocationDriver implements AllocationDriver {
 	
-	private byte [] buffer;
+	private byte [] allocData;
 	
 	/**
 	 * Creates a MemoryAllocationDriver with the specified initial capacity 
@@ -16,7 +16,7 @@ public class MemoryAllocationDriver implements AllocationDriver {
 	 */
 	public MemoryAllocationDriver(long initialCapacity) {
 		//FIXME implementar de modo a nao ser limitiada pelo tamanho maximo de um array
-		buffer = new byte[(int)initialCapacity];
+		allocData = new byte[(int)initialCapacity];
 	}
 	
 	/**
@@ -27,25 +27,21 @@ public class MemoryAllocationDriver implements AllocationDriver {
 	}
 
 	@Override
-	public byte[] read(int allocationStartOffset, int length) {
-		byte [] result = new byte[length];
-		
-		System.arraycopy(buffer, allocationStartOffset, result, 0, length);
-		
-		return result;
+	public void read(byte[]  buffer, int allocationStartOffset, int length) {
+		System.arraycopy(allocData, allocationStartOffset, buffer, 0, length);
 	}
 
 	@Override
 	public void write(byte[] data, long allocationStartOffset, int length) {
-		if(buffer.length < allocationStartOffset + length) {
+		if(allocData.length < allocationStartOffset + length) {
 			byte [] temp = new byte[(int)allocationStartOffset + length];
 			
-			System.arraycopy(buffer, 0, temp, 0, buffer.length);
+			System.arraycopy(allocData, 0, temp, 0, allocData.length);
 			
-			buffer = temp;
+			allocData = temp;
 		}
 		
-		System.arraycopy(data, 0, this.buffer, (int)allocationStartOffset, length);
+		System.arraycopy(data, 0, this.allocData, (int)allocationStartOffset, length);
 	}
 
 }

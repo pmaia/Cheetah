@@ -54,7 +54,7 @@ public class ByteArray extends Allocation {
 		@Override
 		public int write(byte[] data, long allocationStartOffset, int length) throws AllocationIllegalAccessException {
 			writeLock.lock();
-			
+		
 			if(allocationStartOffset + length > getMaxSize()) {
 				throw new AllocationIllegalAccessException();
 			} else if(allocationStartOffset + length > getCurrentSize()) {
@@ -63,7 +63,7 @@ public class ByteArray extends Allocation {
 
 			allocationDriver.write(data, allocationStartOffset, length);
 			
-			return 0;
+			return length;
 		}
 		
 	}
@@ -71,10 +71,7 @@ public class ByteArray extends Allocation {
 	private class ByteArrayInputStream implements AllocationInputStream {
 
 		@Override
-		public void close() {
-			// TODO Auto-generated method stub
-			
-		}
+		public void close() { }
 
 		@Override
 		public int read(byte[] buffer, int allocationStartOffset, int length) {
@@ -83,9 +80,9 @@ public class ByteArray extends Allocation {
 				length = (int)(getCurrentSize() - allocationStartOffset);
 			}
 			
-			allocationDriver.read(allocationStartOffset, length);
+			allocationDriver.read(buffer, allocationStartOffset, length);
 			
-			return 0;
+			return length;
 		}
 		
 	}
